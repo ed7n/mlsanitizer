@@ -1,0 +1,9 @@
+MLSanitizer: Changes
+
+—Update 0
+
+——Revision 1, 10/20/2021.
+- Print application landing URL in the header.
+
+——Revision 0, 08/31/2021.
+- Initial release.

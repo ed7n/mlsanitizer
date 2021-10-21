@@ -14,13 +14,13 @@ public final class Information {
   public static final String NAME = "MLSanitizer";
 
   /** Application version. */
-  public static final String VER = "u0r0";
+  public static final String VER = "u0r1";
 
   /** Application version, long version. */
-  public static final String VERSION = "Update 0 Revision 0";
+  public static final String VERSION = "Update 0 Revision 1";
 
   /** Application release date. */
-  public static final String DATE = "08/31/2021";
+  public static final String DATE = "10/20/2021";
 
   /** Application description. */
   public static final String DESCRIPTION
@@ -32,8 +32,8 @@ public final class Information {
 
   /** Returns the header for this application. */
   public static String getHeader() {
-    return NAME + SPACE + VER + SPACE
-        + "by Brendon," + SPACE + DATE + "." + EOL + "——" + DESCRIPTION + EOL;
+    return NAME + SPACE + VER + SPACE + "by Brendon,"
+        + SPACE + DATE + "." + EOL + "——" + DESCRIPTION + SPACE + URL + EOL;
   }
 
   /** To prevent instantiations of this class. */
