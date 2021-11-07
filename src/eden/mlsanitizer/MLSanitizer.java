@@ -41,7 +41,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
@@ -56,7 +58,7 @@ public class MLSanitizer {
   /** Output filename suffix. */
   public static final String SUFFIX = "-mlsanitized";
 
-  /** Whether to print stack traces of caught throwables. */
+  /** Whether to print stack traces of caught exceptions. */
   public static final boolean DEBUG = false;
 
   /** xref command. */
@@ -116,8 +118,12 @@ public class MLSanitizer {
                 + argument.substring(index)))));
         write();
         getContext().close();
+      } catch (AccessDeniedException exception) {
+        this.modal.println(argument + ": Access denied.", Modal.ERROR);
+      } catch (NoSuchFileException exception) {
+        this.modal.println(argument + ": Not found.", Modal.ERROR);
       } catch (BadPDFException | IOException exception) {
-        printThrowable(argument, exception);
+        printException(argument, exception);
         this.error = true;
       }
     }
@@ -131,25 +137,27 @@ public class MLSanitizer {
     return EXIT_SUCCESS;
   }
 
-  /** Prints the stack trace of the given throwable. */
-  private void printThrowable(Throwable throwable) {
-    printThrowable(null, throwable);
+  /** Prints the stack trace of the given exception. */
+  private void printException(Exception exception) {
+    printException(null, exception);
   }
 
   /**
-   * Prints the stack trace of the given throwable headered by the given header.
+   * Prints the stack trace of the given exception headered by the given header.
    */
-  private void printThrowable(String header, Throwable throwable) {
+  private void printException(String header, Exception exception) {
     if (!Strings.isNullOrEmpty(header))
       this.modal.print(header + ":\n  ", Modal.ERROR);
+    if (exception instanceof EDENRuntimeException) {
+      this.modal.println(exception.getMessage(), Modal.ERROR);
+      this.modal.println(((EDENRuntimeException) exception).getRemedy());
+    } else if (exception instanceof EDENException) {
+      this.modal.println(exception.getMessage(), Modal.ERROR);
+      this.modal.println(((EDENException) exception).getRemedy());
+    } else
+      this.modal.println(exception.toString(), Modal.ERROR);
     if (DEBUG)
-      throwable.printStackTrace(this.modal.getPrintStream());
-    else
-      this.modal.println(throwable.toString(), Modal.ERROR);
-    if (throwable instanceof EDENRuntimeException)
-      this.modal.println(((EDENRuntimeException) throwable).getRemedy());
-    else if (throwable instanceof EDENException)
-      this.modal.println(((EDENException) throwable).getRemedy());
+      exception.printStackTrace(this.modal.getPrintStream());
   }
 
   private void read() throws BadPDFException, IOException {

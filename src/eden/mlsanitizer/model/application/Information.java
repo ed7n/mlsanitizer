@@ -14,13 +14,13 @@ public final class Information {
   public static final String NAME = "MLSanitizer";
 
   /** Application version. */
-  public static final String VER = "u0r1";
+  public static final String VER = "u0r2";
 
   /** Application version, long version. */
-  public static final String VERSION = "Update 0 Revision 1";
+  public static final String VERSION = "Update 0 Revision 2";
 
   /** Application release date. */
-  public static final String DATE = "10/20/2021";
+  public static final String DATE = "11/06/2021";
 
   /** Application description. */
   public static final String DESCRIPTION

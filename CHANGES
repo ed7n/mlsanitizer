@@ -2,6 +2,9 @@ MLSanitizer: Changes
 
 —Update 0
 
+——Revision 2, 11/06/2021.
+- File not found and access denied messages.
+
 ——Revision 1, 10/20/2021.
 - Print application landing URL in the header.
 
