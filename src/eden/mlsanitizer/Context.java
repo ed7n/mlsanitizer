@@ -93,6 +93,7 @@ public class Context {
   protected void initialize(InputStream in) throws IOException {
     close();
     this.in = in;
+    this.out = null;
     initialize(true);
   }
 

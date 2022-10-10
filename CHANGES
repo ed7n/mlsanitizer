@@ -2,6 +2,9 @@ MLSanitizer: Changes
 
 —Update 0
 
+——Revision 3, 10/07/2022.
+- Fixed incomplete outputs with multiple inputs.
+
 ——Revision 2, 11/06/2021.
 - File not found and access denied messages.
 
