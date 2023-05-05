@@ -2,6 +2,12 @@ MLSanitizer: Changes
 
 —Update 0
 
+——Revision 4, 05/05/2023.
+- Fixed code inspection warnings where sensible.
+  - NetBeans 17.
+- Formatted code with Prettier.
+- Updated code style where sensible.
+
 ——Revision 3, 10/07/2022.
 - Fixed incomplete outputs with multiple inputs.
 

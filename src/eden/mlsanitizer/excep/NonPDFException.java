@@ -8,8 +8,8 @@ package eden.mlsanitizer.excep;
 public class NonPDFException extends BadPDFException {
 
   /** Problem description. */
-  protected static final String PROBLEM
-      = "The file is either not a PDF or has an unexpected PDF version.";
+  protected static final String PROBLEM =
+    "The file is either not a PDF or has an unexpected PDF version.";
 
   /** Makes an instance with the given label. */
   public NonPDFException(String label) {

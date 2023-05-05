@@ -12,31 +12,38 @@ public final class Information {
 
   /** Application name. */
   public static final String NAME = "MLSanitizer";
-
   /** Application version. */
-  public static final String VER = "u0r3";
-
+  public static final String VER = "u0r4";
   /** Application version, long version. */
-  public static final String VERSION = "Update 0 Revision 3";
-
+  public static final String VERSION = "Update 0 Revision 4";
   /** Application release date. */
-  public static final String DATE = "10/07/2022";
-
+  public static final String DATE = "05/05/2023";
   /** Application description. */
-  public static final String DESCRIPTION
-      = "ManualsLib-watermarked PDF sanitizer.";
-
+  public static final String DESCRIPTION =
+    "ManualsLib-watermarked PDF sanitizer.";
   /** Application landing URL. */
-  public static final String URL
-      = "https://ed7n.github.io/mlsanitizer";
+  public static final String URL = "https://ed7n.github.io/mlsanitizer";
 
   /** Returns the header for this application. */
   public static String getHeader() {
-    return NAME + SPACE + VER + SPACE + "by Brendon,"
-        + SPACE + DATE + "." + EOL + "——" + DESCRIPTION + SPACE + URL + EOL;
+    return (
+      NAME +
+      SPACE +
+      VER +
+      SPACE +
+      "by Brendon," +
+      SPACE +
+      DATE +
+      "." +
+      EOL +
+      "——" +
+      DESCRIPTION +
+      SPACE +
+      URL +
+      EOL
+    );
   }
 
   /** To prevent instantiations of this class. */
-  private Information() {
-  }
+  private Information() {}
 }

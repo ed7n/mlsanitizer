@@ -24,43 +24,30 @@ public class Context {
 
   /** Initial operation mode. */
   protected static final Mode INIT_MODE = Mode.PDF;
-
   /** Line buffer capacity. */
   protected static final int CAPACITY = 655360;
-
   /** End-of-line. */
   protected static final char EOL = '\n';
-
   /** Mark queue. */
   protected final Deque<Long> marks = new ArrayDeque<>();
-
   /** Line buffer. */
   protected final List<Integer> buffer = new ArrayList<>(CAPACITY);
-
   /** Line builder. */
   protected final StringBuilder builder = new StringBuilder(CAPACITY);
-
   /** Status flags. */
   protected final Set<Flag> flags = EnumSet.noneOf(Flag.class);
-
   /** Input PDF stream. */
   protected InputStream in;
-
   /** Output PDF stream. */
   protected OutputStream out;
-
   /** Operation mode. */
   protected Mode mode;
-
   /** Line accumulator. */
   protected String line;
-
   /** Line and size counters, mark, and object mark. */
   protected long lineCount, mark, objMark, size;
-
   /** Whether its InputStream has reached the end-of-file. */
   protected boolean eof;
-
   /** Whether its InputStream is at an end-of-line. */
   protected boolean eol = false;
 
@@ -85,8 +72,7 @@ public class Context {
     setMode(INIT_MODE);
     setObjMark(NUL_INT);
     zeroSize();
-    if (clearMarks)
-      getMarks().clear();
+    if (clearMarks) getMarks().clear();
   }
 
   /** Initializes itself for reading from the given InputStream. */
@@ -109,13 +95,9 @@ public class Context {
 
   /** Reads and returns the next line from its InputStream. */
   protected String readLine() throws IOException {
-    if (isEof())
-      return null;
+    if (isEof()) return null;
     int acc;
-    if (isInWriteMode())
-      getBuffer().clear();
-    else
-      clearBuilder();
+    if (isInWriteMode()) getBuffer().clear(); else clearBuilder();
     while (true) {
       if (isEol()) {
         incrementLineCount();
@@ -129,10 +111,8 @@ public class Context {
           this.eol = true;
           return isInWriteMode() ? stringifyBuffer() : stringifyBuilder();
       }
-      if (isInWriteMode())
-        getBuffer().add(acc);
-      else
-        getBuilder().appendCodePoint(acc);
+      if (isInWriteMode()) getBuffer().add(acc); else getBuilder()
+        .appendCodePoint(acc);
     }
   }
 
@@ -142,7 +122,7 @@ public class Context {
    * replaced with the given one.
    */
   protected void setForWriting(InputStream in, OutputStream out)
-      throws IOException {
+    throws IOException {
     close();
     this.in = in;
     this.out = out;
@@ -165,18 +145,17 @@ public class Context {
    */
   protected String stringifyBuilder() {
     setLine(getBuilder().toString());
-    if (!isInWriteMode())
-      if (lineMatches(REGEX_OBJ))
-        setObjMark(getLineCount());
-      else if (lineMatches(REGEX_ENDOBJ))
-        setObjMark(NUL_INT);
+    if (!isInWriteMode()) if (lineMatches(REGEX_OBJ)) setObjMark(
+      getLineCount()
+    ); else if (lineMatches(REGEX_ENDOBJ)) setObjMark(NUL_INT);
     return getLine();
   }
 
   /** Writes its line buffer to its OutputStream. */
   protected void writeBuffer() throws IOException {
-    for (int index = 0; index < getBuffer().size(); index++)
-      this.out.write(getBuffer().get(index));
+    for (int index = 0; index < getBuffer().size(); index++) this.out.write(
+        getBuffer().get(index)
+      );
     this.out.write(EOL);
     incrementSize(getBuffer().size() + 1);
   }
@@ -195,10 +174,8 @@ public class Context {
 
   /** Closes its I/O streams. */
   protected void close() throws IOException {
-    if (this.in != null)
-      this.in.close();
-    if (this.out != null)
-      this.out.close();
+    if (this.in != null) this.in.close();
+    if (this.out != null) this.out.close();
   }
 
   /** Returns the difference between its line counter and mark. */
@@ -287,10 +264,8 @@ public class Context {
    */
   protected void addRange(long from, long to) {
     Long last = getMarks().peekLast();
-    if (last != null && from == last)
-      getMarks().pollLast();
-    else
-      getMarks().addLast(from);
+    if (last != null && from == last) getMarks().pollLast(); else getMarks()
+      .addLast(from);
     getMarks().addLast(to);
   }
 
@@ -371,11 +346,27 @@ public class Context {
 
   /** Status flags. */
   protected enum Flag {
-    AUTHOR, CREATION, CREATOR, KEYWORDS, MODDATE, PRODUCER, SUBJECT, TITLE;
+    AUTHOR,
+    CREATION,
+    CREATOR,
+    KEYWORDS,
+    MODDATE,
+    PRODUCER,
+    SUBJECT,
+    TITLE,
   }
 
   /** Operation modes. */
   protected enum Mode {
-    PDF, PAGES, PAGE, HOOK, URI, CATALOG, SEEK, INFO, XREF, DONE;
+    PDF,
+    PAGES,
+    PAGE,
+    HOOK,
+    URI,
+    CATALOG,
+    SEEK,
+    INFO,
+    XREF,
+    DONE,
   }
 }

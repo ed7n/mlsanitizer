@@ -15,6 +15,5 @@ public abstract class BadPDFException extends EDENException {
   }
 
   /** To prevent null instantiations of this class. */
-  protected BadPDFException() {
-  }
+  protected BadPDFException() {}
 }

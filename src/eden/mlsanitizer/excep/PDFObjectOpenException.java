@@ -8,8 +8,8 @@ package eden.mlsanitizer.excep;
 public class PDFObjectOpenException extends BadPDFException {
 
   /** Problem description. */
-  protected static final String PROBLEM
-      = "PDF Error: An object is not closed with `endobj`.";
+  protected static final String PROBLEM =
+    "PDF Error: An object is not closed with `endobj`.";
 
   /** Makes an instance with the given label. */
   public PDFObjectOpenException(String label) {
